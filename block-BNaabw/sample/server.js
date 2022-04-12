@@ -1,34 +1,22 @@
+// requires
 var express = require('express');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 
 var app = express();
 
-// custom middleware
-
-app.use((req, res, next) => {
-    res.cookie("username", "ashwini123");
-    next();
-})
-
 // middlewares
 
-app.get('/form', (req, res) => {
-    res.json(req.body);
-});
+    // form & json data
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
-app.get('/json', (req, res) => {
-    res .json(req.body);
-});
+   //static assets middleware
+app.use(express.static(__dirname + '/public'))
 
-// third party middlewares
-
+   //third party middleware
 app.use(logger('dev'));
 app.use(cookieParser());
-
-// static assets
-
-app.use(express.static(__dirname + '/public'))
 
 // routes
 
